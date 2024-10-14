@@ -2,6 +2,7 @@ public class Animal{
 
 
     //fields
+    private String name;
     private String habitat;
     private String diet;
     private String limbs;
@@ -11,7 +12,8 @@ public class Animal{
     private Integer currScore;
 
     //constructor
-    public Animal(String h, String d, String l, String c, String m, String cl){
+    public Animal(String n, String h, String d, String l, String c, String m, String cl){
+        name = n;
         habitat = h;
         diet = d;
         limbs = l;
@@ -40,6 +42,10 @@ public class Animal{
         }
     }
 
+    public void resetScore(){
+        currScore = 0;
+    }
+
     public int getScore(){
         return currScore;
     }
@@ -48,5 +54,8 @@ public class Animal{
         return classification;
     }
 
+    public String getName(){
+        return name;
+    }
 
 }
