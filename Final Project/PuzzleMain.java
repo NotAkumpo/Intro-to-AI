@@ -1,7 +1,7 @@
 public class PuzzleMain {
     
     public static void main (String[] args){
-        int[][] t = { {8, 7, 6}, {5, 0, 3}, {2, 1, 4} };
+        int[][] t = { {7, 2, 4}, {5, 0, 6}, {8, 3, 1} };
         PuzzleBFS p = new PuzzleBFS(t);
     }
 
