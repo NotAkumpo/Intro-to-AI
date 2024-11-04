@@ -1,11 +1,13 @@
-import java.util.PriorityQueue;
+import java.util.Arrays;
+import java.util.ArrayList;
 
 public class PuzzleBFS {
     
     //fields
     private Node goalState;
     private Node initialState; 
-    private PriorityQueue<Node> frontier;
+    private ArrayList<Node> frontier;
+    private boolean solved;
 
     //constructor
     public PuzzleBFS(int[][] c){
@@ -43,21 +45,48 @@ public class PuzzleBFS {
         }
 
         initialState = new Node(null, c, os);
-        frontier = new PriorityQueue<>();
-        
-        //just a bunch of testers
-        goalState.printConfig();
-        initialState.printConfig();
-        System.out.println(goalState.returnOpenSpot());
-        System.out.println(initialState.returnOpenSpot());
-        for ( Node n : initialState.generateChildren() ) {
-            n.printConfig();
-        }
+        frontier = new ArrayList<Node>();
+        frontier.add(initialState);
+
+        solved = Arrays.deepEquals(goalState.returnConfig(), initialState.returnConfig());
+
+        runBFS();
 
     }
 
 
     //methods
+    private void runBFS(){
+
+        for ( Node n : frontier ) {
+            n.printConfig();
+        }
+
+        System.out.println("-----");
+
+        while(!solved){
+
+            for ( Node n : frontier.get(0).generateChildren() ) {
+                frontier.add(n);
+            }
+            frontier.remove(0);
+            solved = Arrays.deepEquals(goalState.returnConfig(), frontier.get(0).returnConfig());
+
+            for ( Node n : frontier ) {
+                n.printConfig();
+            }
+
+            System.out.println("-----");
+
+        }
+
+        Node o = frontier.get(0);
+        while (o != null){
+            o.printConfig();
+            o = o.returnParent();
+        }
+
+    }
 
 
 }
