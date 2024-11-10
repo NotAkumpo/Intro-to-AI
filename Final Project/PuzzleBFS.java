@@ -1,16 +1,19 @@
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.ArrayList;
 
 public class PuzzleBFS {
     
     //fields
-    private Node goalState;
-    private Node initialState; 
-    private ArrayList<Node> frontier;
-    private boolean solved;
+    protected Node goalState;
+    protected Node initialState; 
+    protected ArrayList<Node> frontier;
+    protected HashSet<String> explored;
+    protected boolean solved;
 
     //constructor
     public PuzzleBFS(int[][] c){
+        // int[][] gsConfig = { {1, 2, 3}, {4, 5, 6}, {7, 8, 0} };
         int[][] gsConfig = { {0, 1, 2}, {3, 4, 5}, {6, 7, 8} };
         int os = 0;
 
@@ -46,17 +49,19 @@ public class PuzzleBFS {
 
         initialState = new Node(null, c, os);
         frontier = new ArrayList<Node>();
+        explored = new HashSet<String>();
         frontier.add(initialState);
+        explored.add(initialState.returnFConfig());
 
         solved = Arrays.deepEquals(goalState.returnConfig(), initialState.returnConfig());
 
-        runBFS();
+        runSearch();
 
     }
 
 
     //methods
-    private void runBFS(){
+    protected void runSearch(){
 
         for ( Node n : frontier ) {
             n.printConfig();
@@ -65,11 +70,14 @@ public class PuzzleBFS {
         System.out.println("-----");
 
         while(!solved){
-
-            for ( Node n : frontier.get(0).generateChildren() ) {
-                frontier.add(n);
-            }
+            ArrayList<Node> children = frontier.get(0).generateChildren();
             frontier.remove(0);
+            for ( Node n : children ) {
+                if (!explored.contains(n.returnFConfig())){
+                    frontier.add(n);
+                    explored.add(n.returnFConfig());
+                }
+            }
             solved = Arrays.deepEquals(goalState.returnConfig(), frontier.get(0).returnConfig());
 
             for ( Node n : frontier ) {
