@@ -63,11 +63,11 @@ public class PuzzleBFS {
     //methods
     protected void runSearch(){
 
-        for ( Node n : frontier ) {
-            n.printConfig();
-        }
-
-        System.out.println("-----");
+        // for debugging
+        // for ( Node n : frontier ) {
+        //     n.printConfig();
+        // }
+        //System.out.println("-----");
 
         while(!solved){
             ArrayList<Node> children = frontier.get(0).generateChildren();
@@ -80,11 +80,11 @@ public class PuzzleBFS {
             }
             solved = Arrays.deepEquals(goalState.returnConfig(), frontier.get(0).returnConfig());
 
-            for ( Node n : frontier ) {
-                n.printConfig();
-            }
+            // for ( Node n : frontier ) {
+            //     n.printConfig();
+            // }
 
-            System.out.println("-----");
+            //System.out.println("-----");
 
         }
 

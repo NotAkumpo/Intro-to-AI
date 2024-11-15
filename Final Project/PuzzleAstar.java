@@ -14,11 +14,11 @@ public class PuzzleAstar extends PuzzleBFS {
 
         Node winner = frontier.get(0);
 
-        for ( Node n : frontier ) {
-            n.printConfig();
-        }
+        // for ( Node n : frontier ) {
+        //     n.printConfig();
+        // }
 
-        System.out.println("-----");
+        //System.out.println("-----");
 
         while(!solved){
             ArrayList<Node> children = winner.generateChildren();
@@ -29,14 +29,13 @@ public class PuzzleAstar extends PuzzleBFS {
                     frontier.add(n);
                     explored.add(n.returnFConfig());
                 }
-                solved = Arrays.deepEquals(goalState.returnConfig(), winner.returnConfig());
             }
 
-            for ( Node n : frontier ) {
-                n.printConfig();
-            }
+            // for ( Node n : frontier ) {
+            //     n.printConfig();
+            // }
 
-            System.out.println("-----");
+            //System.out.println("-----");
 
             Double winnerHeuristic = 100.0;
 
@@ -46,13 +45,22 @@ public class PuzzleAstar extends PuzzleBFS {
                     winnerHeuristic = n.returnHeuristic();
                 }
             }
-
+            solved = Arrays.deepEquals(goalState.returnConfig(), winner.returnConfig());
         }
 
         Node o = winner;
+        ArrayList<Node> solutionPath = new ArrayList<>();
+
+        // gets the path from the goal state to the inital state
         while (o != null){
-            o.printConfig();
+            solutionPath.add(o);
             o = o.returnParent();
+        }
+
+        // goes through the elements in solution path in reverse
+        System.out.println("\nSolution:");
+        for (int i = solutionPath.size() - 1; i >= 0; i--) {
+            solutionPath.get(i).printConfig();
         }
     }
     

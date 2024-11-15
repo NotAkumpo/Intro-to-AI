@@ -18,11 +18,11 @@ public class PuzzleDFS extends PuzzleBFS {
         sFrontier = new Stack<Node>();
         sFrontier.push(initialState);
 
-        for ( Node n : sFrontier ) {
-            n.printConfig();
-        }
+        // for ( Node n : sFrontier ) {
+        //     n.printConfig();
+        // }
 
-        System.out.println("-----");
+        // System.out.println("-----");
 
         while(!solved){
             ArrayList<Node> children = sFrontier.get(sFrontier.size()-1).generateChildren();
@@ -35,11 +35,11 @@ public class PuzzleDFS extends PuzzleBFS {
             }
             solved = Arrays.deepEquals(goalState.returnConfig(), sFrontier.get(sFrontier.size()-1).returnConfig());
 
-            for ( Node n : sFrontier ) {
-                n.printConfig();
-            }
+            // for ( Node n : sFrontier ) {
+            //     n.printConfig();
+            // }
 
-            System.out.println("-----");
+            // System.out.println("-----");
 
         }
 

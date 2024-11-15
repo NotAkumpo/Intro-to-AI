@@ -22,8 +22,18 @@ public class Node {
 
     //methods
     public void printConfig(){
+        System.out.println("-------");
         for ( int i=0; i<3; i++ ){
-            System.out.println(config[i][0] + " " + config[i][1] + " " + config[i][2]);
+            if (config[i][0] == 0) {
+                System.out.println("| |" + config[i][1] + "|" + config[i][2] + "|");
+            } else if (config[i][1] == 0) {
+                System.out.println("|" + config[i][0] + "| |" + config[i][2] + "|");
+            } else if (config[i][2] == 0) {
+                System.out.println("|" + config[i][0] + "|" + config[i][1] + "| |");
+            } else {
+                System.out.println("|" + config[i][0] + "|" + config[i][1] + "|" + config[i][2] + "|");
+            }
+            System.out.println("-------");
         }
         System.out.println("");
     }
