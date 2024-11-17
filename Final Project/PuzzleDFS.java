@@ -18,11 +18,6 @@ public class PuzzleDFS extends PuzzleBFS {
         sFrontier = new Stack<Node>();
         sFrontier.push(initialState);
 
-        // for ( Node n : sFrontier ) {
-        //     n.printConfig();
-        // }
-
-        // System.out.println("-----");
 
         while(!solved){
             ArrayList<Node> children = sFrontier.get(sFrontier.size()-1).generateChildren();
@@ -33,24 +28,32 @@ public class PuzzleDFS extends PuzzleBFS {
                     explored.add(n.returnFConfig());
                 }
             }
-            solved = Arrays.deepEquals(goalState.returnConfig(), sFrontier.get(sFrontier.size()-1).returnConfig());
-
-            // for ( Node n : sFrontier ) {
-            //     n.printConfig();
-            // }
-
-            // System.out.println("-----");
+            if (!sFrontier.isEmpty()) {
+                 solved = Arrays.deepEquals(goalState.returnConfig(), sFrontier.get(sFrontier.size()-1).returnConfig());
+            }
+               
 
         }
 
+        ArrayList<Node> solutionPath = new ArrayList<>();
         Node o = sFrontier.get(sFrontier.size()-1);
+
+
         while (o != null){
-            o.printConfig();
+            solutionPath.add(o);
             o = o.returnParent();
         }
 
+        System.out.println("");
+        System.out.println("Depth First Search for Configuration:");
+        System.out.println("");
+        initialState.printConfig();
+        System.out.println("");
+        System.out.println("\nSolution:");
+        System.out.println("");
+        for (int i = solutionPath.size() - 1; i >= 0; i--) {
+            solutionPath.get(i).printConfig();
+        }
+
     }
-
-
-
 }

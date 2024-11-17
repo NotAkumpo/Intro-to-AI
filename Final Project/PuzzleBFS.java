@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PuzzleBFS {
     
@@ -13,7 +14,6 @@ public class PuzzleBFS {
 
     //constructor
     public PuzzleBFS(int[][] c){
-        // int[][] gsConfig = { {1, 2, 3}, {4, 5, 6}, {7, 8, 0} };
         int[][] gsConfig = { {0, 1, 2}, {3, 4, 5}, {6, 7, 8} };
         int os = 0;
 
@@ -63,12 +63,6 @@ public class PuzzleBFS {
     //methods
     protected void runSearch(){
 
-        // for debugging
-        // for ( Node n : frontier ) {
-        //     n.printConfig();
-        // }
-        //System.out.println("-----");
-
         while(!solved){
             ArrayList<Node> children = frontier.get(0).generateChildren();
             frontier.remove(0);
@@ -80,20 +74,26 @@ public class PuzzleBFS {
             }
             solved = Arrays.deepEquals(goalState.returnConfig(), frontier.get(0).returnConfig());
 
-            // for ( Node n : frontier ) {
-            //     n.printConfig();
-            // }
-
-            //System.out.println("-----");
-
         }
+
+        ArrayList<Node> solutionPath = new ArrayList<>();
 
         Node o = frontier.get(0);
         while (o != null){
-            o.printConfig();
+            solutionPath.add(o);
             o = o.returnParent();
         }
 
+        System.out.println("");
+        System.out.println("Breadth First Search for Configuration:");
+        System.out.println("");
+        initialState.printConfig();
+        System.out.println("");
+        System.out.println("\nSolution:");
+        System.out.println("");
+        for (int i = solutionPath.size() - 1; i >= 0; i--) {
+            solutionPath.get(i).printConfig();
+        }
     }
 
 
